@@ -13,7 +13,7 @@ client.on('message', message => {
  client.on('message', message => {
     if (message.content === 'how are you?') {
     	message.reply('lm going good what about you?');
-});
+    }
 
 // THIS  MUST  BE  THIS  WAY
 client.login(process.env.BOT_TOKEN);
