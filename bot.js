@@ -11,7 +11,7 @@ client.on('message', message => {
   	});
    
  client.on('message', message => {
-    if (message.content === 'how are you?) {
+    if (message.content === 'how are you?') {
     	message.reply('lm going good what about you?');
 });
 
