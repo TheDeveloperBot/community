@@ -7,7 +7,7 @@ client.on('ready', () => {
 
 client.on('message', message => {
     if (message.content === 'Hello') {
-    	message.reply('Hey There dude, How are you?);
+    	message.reply('Hey There dude, How are you?');
   	}
 });
 
