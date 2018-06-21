@@ -295,4 +295,4 @@ const dispatcher = serverQueue.connection.playStream(ytdl(song.url))
   dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);﻿
 }
 
-client.login("NDQ3MDQ0NzI1ODIwNjIwODEw.DgVhZA.tgcvoE93O4mpNhoRMm1IkdSjI9A")
+client.login("")
