@@ -1,42 +1,33 @@
-
 const Discord = require("discord.js");
 
 module.exports.run = async (bot, message, args) => {
   const embed = new Discord.RichEmbed()
   
-  .setTitle("list of Commands")
+  .setTitle("list of Commands (click here to join us)")
   .setDescription("__Community Of People™ at your service!__")
   
   .setColor("#4290AE")
-  .addField("?Do you, ?play","Some Nice mini game", false)
-  .addField("?ban, ?kick", "Bans the mentioned user (in beta)/kick the user that have been given .", false)
-  .addField("?joke","Get some random jokes just like memes",false)
-  .addField("?avatar","Get your own/user avater",false)
-  .addField("?checkinvites","Returns a list of members with an invite as their game.", false)
-  .addField("?number","pick a random number",false)  
-  .addField("?state","Info about uptime, Servers, users and more.", false)
-  .addField("?vote","Make a nice vote for you where all your members can vote.",false)
-  .addField("?poll","Make a nice poll for ya",false)
-  .addField("?ping","Get your internet speed.", false)
-  .addField("?rthelp","Get info about the report command.", false)
-  .addField("?warnhelp", "Help you with the warn commands.",false)
-  .addField("?warn, ?warnlevel","Drop a warn on someone/displays some one warnlevel.",false) 
-  .addField("?serverinfo","Info about the server.", false)
-  .addField("?khelp","Info/help about Kick commands.", false)
-  .addField("?report","report somebody.", false)
-  .addField("?mute","mute someone.", false)
-  .addField("?clear","Clears all reactions from given number of message.",false)
-  .addField("?info","More About The Bot and us.", false)
-  .addField("?meme", "meme generator.", false)
-  .addField("?level", "What level are you on.", false)
-  .addField("?say", "Copies what u said.", false)
-  .addField("?sayd","Copies what u said (BOT DELETES THE COMMAND AFTER WORDS) [Administrator required]",false)
-  .addField("bad words filter on ❌","This will remove all bad word (more than 1 warn Get banned)",false)
-  .addField("Kim The bot","Chat with our bot (in work)",false)
-  message.author.send({embed});
-  message.reply ("l just send you all the commands in your DMs 📥")
-}
+  .setTimestamp()
+  .setURL('https://discord.gg/DrpkVTS')
+  .setAuthor(`${bot.user.tag}`, bot.user.displayAvatarURL)
+  .setDescription(`Thanks you ${message.author} for using me`)
+  .setThumbnail(bot.user.displayAvatarURL)
+  .addField ("?welcome","**__set up your welcome message channel.__**")
+  .addField("?main ``18 cmds available``","**display all the __main__ commands**", false)
+  .addField("?mod ``9 cmds available``","**display all __mods__ commands**", false)
+  .addField("?fun ``19 cmds available``", "**display all __fun__ commands**", false)
+  .addField("?time ``3 cmds available``","**display all the __time__ commands**")
+  .addField("?game ``8 cmds available``","**display the __game__ commands**",false)
+  .addField("?music ``9 cmds available``","**display all the __music__ commands**",false)
+ .addField("?nsfw ``23 cmds available``","**display all the __nsfw__ commands**",false)
+  .addField("?dev ``4 cmds available``","**display all the __developer__ commands**")
+  .addField("?statistics ``9 cmds available``", "**display all the __statistics__ commands**", false)
+  .addField("bad words filter on ❌","This will remove all bad word.",false)
+  .addField ("**Kim** is always here to chat with you","To chat with Kim all you have to do is put ``Kim`` before your message. __Ex__ kim hi ``(it will take some time to message back)``")
+  .setFooter("If you found a bug please report it using ?bugreport | Do ?invite to invite me to your server")
+  message.channel.send(embed).then(message => message.react('📥'))
 
+}
 module.exports.help = {
-  name: "help"
+  name: "?help"
 }
