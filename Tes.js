@@ -26,9 +26,7 @@ client.on('message', async message => {
 			const connection = await channel.join();
 
 			const dispatcher = connection.playStream(config.radioStream, {});
-			client.user.setActivity(config.radioName, { type: 'LISTENING' });
-			/* Starting stream message */
-			message.reply("I start broadcasting the radio **" + config.radioName + "** in **" + channel.name + "**.");
+			
 
 		} else {
 
@@ -37,10 +35,7 @@ client.on('message', async message => {
 				const connection = await message.member.voiceChannel.join();
 
 				const dispatcher = connection.playStream(config.radioStream, {});
-				client.user.setActivity(config.radioName, { type: 'LISTENING' });
-				/* Starting stream message */
-				message.reply("I start broadcasting the radio **" + config.radioName + "** in **" + message.member.voiceChannel.name + "**.");
-					
+				
 			} else {
 
 				/* Error if no voice channel joined) */
