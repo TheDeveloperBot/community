@@ -25,8 +25,8 @@ client.on('message', async message => {
 
 			const connection = await channel.join();
 
-			const dispatcher = connection.playStream(config.radioStream, {});
-			
+		const dispatcher = connection.playStream(config.radioStream, {});
+	message.channel.send("**The player have been set!**")
 
 		} else {
 
@@ -35,7 +35,8 @@ client.on('message', async message => {
 				const connection = await message.member.voiceChannel.join();
 
 				const dispatcher = connection.playStream(config.radioStream, {});
-				
+				message.channel.send("**The player have been set!**")
+			
 			} else {
 
 				/* Error if no voice channel joined) */
