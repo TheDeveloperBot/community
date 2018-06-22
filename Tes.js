@@ -19,13 +19,13 @@ client.on('message', async message => {
 	const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
 	const command = args.shift().toLowerCase();
 
-	if(command === "play") {
+	if(command === "song") {
 
 		if(config.radioChannelId) {
 
 			const connection = await channel.join();
 
-		const dispatcher = connection.playStream(config.radioStream, {});
+		const dispatcher = connection.playStream(config.song, {});
 	message.channel.send("**The player have been set!**")
 
 		} else {
@@ -34,7 +34,7 @@ client.on('message', async message => {
 
 				const connection = await message.member.voiceChannel.join();
 
-				const dispatcher = connection.playStream(config.radioStream, {});
+				const dispatcher = connection.playStream(config.song, {});
 				message.channel.send("**The player have been set!**")
 			
 			} else {
