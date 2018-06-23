@@ -1,4 +1,5 @@
-const Discord = require('discord.js');
+
+Discord = require('discord.js');
 const client = new Discord.Client();
 
 var config = require("./config.json");
@@ -26,7 +27,6 @@ client.on('message', async message => {
 			const connection = await channel.join();
 
 		const dispatcher = connection.playStream(config.song, {});
-	message.channel.send("**The player have been set!**")
 
 		} else {
 
@@ -35,7 +35,7 @@ client.on('message', async message => {
 				const connection = await message.member.voiceChannel.join();
 
 				const dispatcher = connection.playStream(config.song, {});
-				message.channel.send("**The player have been set!**")
+				
 			
 			} else {
 
