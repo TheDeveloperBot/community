@@ -1,0 +1,22 @@
+{
+  "name": "Test",
+  "description": "Test",
+  "version": "0.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "discord.js": "^11.3.2",
+    "request": "^2.87.0",
+    "superagent": "^3.8.3",
+    "random-puppy": "^1.1.0",
+    "pornsearch": "^2.4.2",
+    "search-index": "^0.15.0",
+    "binary-search-bounds": "^2.0.4",
+    "fs": "^0.0.2",
+    "moment": "^2.22.2",
+    "moment-duration-format": "^2.2.2",
+    "booru": "^0.5.0"
+  }
+}
