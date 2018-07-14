@@ -1,97 +1,67 @@
-const Discord = require('discord.js');
-const client = new Discord.Client();
+const Discord = require("discord.js");
+const bot = new Discord.Client();
+bot.on("ready", () => {
+  console.log(`Bot has started, with ${bot.users.size} users, in ${bot.channels.size} channels of ${bot.guilds.size} guilds.`);
 
-var config = require("./config.json");
+    bot.guilds.forEach((guild) => { //for each guild the bot is in
+         let defaultChannel = "announcements";
+         guild.channels.forEach((channel) => {
+               if(channel.type == "text" && defaultChannel == "announcements") {
+               if(channel.permissionsFor(guild.me).has("SEND_MESSAGES")) {
+                   defaultChannel = channel;
+               }
+               }
+         })
+         setInterval (function () {
+           defaultChannel.send({embed: {
+    color: 3447003,
+    author: {
+      name: bot.user.username,
+      icon_url: bot.user.avatarURL
+    },
+    title: "👍 UPDATE LOG! 👍",
+    url: "http://google.com",
+    description:"This is an update log.",                      
+    fields: [{
+        name: "#1 Chatbot Updates",
+      value:"Now you can chat with the bot using **Kim** or just **DM** the bot."
+      },
+      {
+        name: "#2 giveaways added",//wait l'm sending an update log  //what is it?
+        value:"giveaways has been added and update!"
+      },
+     {
+        name: "#3 Cmds added",
+      value: "Some more cmds have been added as well!"
+    
+     },
+             {
+               name:"#4 leveling/coins system upgraded!",
+               value:"updated level and conis system worker"//hold on
+             },
+             {
+               name:"#5 Bugs fixes",
+               value:"Fixes some bugs"
+             },
+             {
+               name:"Feedback",
+               value:"you can join us by clicking [here](https://discord.gg/ZY7DbYJ) also you can vote for the bot here to keep it update and free [vote](https://discordbots.org/bot/447044725820620810/vote)"
+             },
+      {
+        name: "Bugs reports",
+        value: "If you find any bugs pls report it using ?bugreport"
+      }
+    ],
+    timestamp: new Date(),
+    footer: {
+      icon_url: bot.user.avatarURL,
+      text: "© By Community Of People Developers"
+    }       
+           }
+                               })
 
-client.login(config.token);
-
-client.on('ready', () => {
+ }, 1 * 1000); 
+    })
 });
-
-client.on('message', async message => {
-
-	let channel = client.channels.get(config.radioChannelId);
-
-	if(message.author.bot) return;
-	if(message.content.indexOf(config.prefix) !== 0) return;
-
-	const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
-	const command = args.shift().toLowerCase();
-
-	if(command === "top") {
-
-		if(config.radioChannelId) {
-
-			const connection = await channel.join();
-
-		const dispatcher = connection.playStream(config.top, {});
-
-		} else {
-
-			if (message.member.voiceChannel) {
-
-				const connection = await message.member.voiceChannel.join();
-
-				const dispatcher = connection.playStream(config.top, {});
-				
-			
-			} else {
-
-				/* Error if no voice channel joined) */
-				message.reply("you're not in vc..");
-				
-			}
-
-		}
-	}
   
-  if(command === "play") {
 
-		if(config.radioChannelId) {
-
-			const connection = await channel.join();
-
-			const dispatcher = connection.playStream(config.radioStream, {});
-			/* Starting stream message */
-			message.reply("I start broadcasting the radio **" + config.radioName + "** in **" + channel.name + "**.");
-
-		} else {
-
-			if (message.member.voiceChannel) {
-
-				const connection = await message.member.voiceChannel.join();
-
-				const dispatcher = connection.playStream(config.radioStream, {});
-				/* Starting stream message */
-				message.reply("I start broadcasting the radio **" + config.radioName + "** in **" + message.member.voiceChannel.name + "**.");
-					
-			} else {
-
-				/* Error if no voice channel joined) */
-				message.reply("you're not in a vc..");
-				
-			}
-
-		}
-	}
-
-	if(command === "stop") { 
-
-		const voiceConnection = client.voiceConnections.find(val => val.channel.guild.id == message.guild.id);
-
-		/* Error (wrong textChannel message) */
-		if (voiceConnection === null) return message.reply("I'm not broadcasting.");
-
-		/* Stopping stream message */
-		message.reply("I stop broadcasting the radio **" + config.radioName + "**.");
-
-		voiceConnection.player.dispatcher.end();
-		voiceConnection.disconnect();
-
-  }
-
-	/*Development function
-	if (command === 'sd') {
-		process.exit(0);
-	}*/
-});
