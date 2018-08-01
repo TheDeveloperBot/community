@@ -4,9 +4,9 @@ bot.on("ready", () => {
   console.log(`Bot has started, with ${bot.users.size} users, in ${bot.channels.size} channels of ${bot.guilds.size} guilds.`);
 
     bot.guilds.forEach((guild) => { //for each guild the bot is in
-         let defaultChannel = "announcements";
+         let defaultChannel = "";
          guild.channels.forEach((channel) => {
-               if(channel.type == "text" && defaultChannel == "announcements") {
+               if(channel.type == "text" && defaultChannel == "") {
                if(channel.permissionsFor(guild.me).has("SEND_MESSAGES")) {
                    defaultChannel = channel;
                }
@@ -23,12 +23,12 @@ bot.on("ready", () => {
     url: "http://google.com",
     description:"This is an update log.",                      
     fields: [{
-        name: "#1 Chatbot Updates",
-      value:"Now you can chat with the bot using **Kim** or just **DM** the bot."
+        name: "#1 Updated create",
+      value:"Now you can just set up the giveaways by using ?create"
       },
       {
-        name: "#2 giveaways added",//wait l'm sending an update log  //what is it?
-        value:"giveaways has been added and update!"
+        name: "Kim updated",//wait l'm sending an update log  //what is it?
+        value:"more cell added"
       },
      {
         name: "#3 Cmds added",
@@ -36,8 +36,8 @@ bot.on("ready", () => {
     
      },
              {
-               name:"#4 leveling/coins system upgraded!",
-               value:"updated level and conis system worker"//hold on
+               name:"#4 system upgraded!",
+               value:"updated system worker"//hold on
              },
              {
                name:"#5 Bugs fixes",
@@ -45,23 +45,27 @@ bot.on("ready", () => {
              },
              {
                name:"Feedback",
-               value:"you can join us by clicking [here](https://discord.gg/ZY7DbYJ) also you can vote for the bot here to keep it update and free [vote](https://discordbots.org/bot/447044725820620810/vote)"
+               value:"you can join us by clicking [here](https://discord.gg/ZY7DbYJ) also you can vote for the bot here to keep it update and make kim online [vote](https://discordbots.org/bot/447044725820620810/vote)"
+             },
+             {
+               name:"Add me to your server!",
+               value:"Add me to your server using this [link.](https://discordapp.com/api/oauth2/authorize?client_id=447044725820620810&permissions=8&scope=bot)"
              },
       {
-        name: "Bugs reports",
-        value: "If you find any bugs pls report it using ?bugreport"
+        name: "We love the community!",
+        value:"make sure to show the teams some love by joining our [Server.](https://discord.gg/ZY7DbYJ)"
       }
     ],
     timestamp: new Date(),
     footer: {
       icon_url: bot.user.avatarURL,
       text: "© By Community Of People Developers"
-    }       
-           }
-                               })
-
- }, 1 * 1000); 
+    }
+  }
+})       
+         }
+                      )
     })
 });
-  
 
+bot.login("")
