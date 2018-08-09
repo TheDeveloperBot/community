@@ -1,6 +1,8 @@
 const Discord = require("discord.js");
 const { Client, Util } = require('discord.js');
+const actions = require('./actions');
 const { TOKEN, PREFIX, GOOGLE_API_KEY } = require('./config');
+const TimeParser = actions.Time;
 const YouTube = require('simple-youtube-api');
 const ytdl = require('ytdl-core');
 
@@ -60,9 +62,7 @@ client.on('message', async msg => { // eslint-disable-line
 					let index = 0;
 					msg.channel.send(`
 __**<:right:453640741089181696> Song selection: <:left:453639942451494922>**__
-
 ${videos.map(video2 => `**${++index} -** ${video2.title}`).join('\n')}
-
 **Please provide a value to select one of the search results ranging from __1-10.__**
 					`);
 					// eslint-disable-next-line max-depth
@@ -115,7 +115,6 @@ ${videos.map(video2 => `**${++index} -** ${video2.title}`).join('\n')}
 __**<:up_left:453649446706872322> Song queue: <:up_right:453649446949879839>**__
                                 
 ${serverQueue.songs.map(song => `**-** ${song.title}`).join('\n')}
-
 》**<a:list:453645940314734594> Now playing:** ${serverQueue.songs[0].title}
 		`);
 	} else if (command === 'pause') {
@@ -185,16 +184,7 @@ function play(guild, song) {
 	}
 	console.log(serverQueue.songs);
   
-  const embed = new Discord.RichEmbed()
-   .setTimestamp()
-  .setThumbnail(`https://img.youtube.com/vi/${video.id}/mqdefault.jpg`)
-  .addField("Stats","Start playing")
-  .addField("Song title",`${song.title}`)
-   .addField("Requested By",`${msg.author.username}`)
-  .addField("The playing music",`${serverQueue.songs[0].title}`)
-  .addField("Info",`Song [url](${song.url}) | Videos ID: ${video.id}`)
-
-	const dispatcher = serverQueue.connection.playStream(ytdl(song.url))
+  const dispatcher = serverQueue.connection.playStream(ytdl(song.url))
 		.on('end', reason => {
 			if (reason === 'Stream is not generating quickly enough.') console.log('Song ended.');
 			else console.log(reason);
@@ -204,12 +194,28 @@ function play(guild, song) {
 		.on('error', error => console.error(error));
 	dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
 
+  (new actions.yt_search.search(url)).init().then(videoUrl => {
+        console.log(videoUrl || 'Does not exist..');
+        let _stream = new actions.yt_search.createStream(videoUrl);
+        _stream.getInfo().then(i=>{
+    const embed = new Discord.RichEmbed()
+   .setTimestamp()
+  .setThumbnail(`https://img.youtube.com/vi/${video.id}/mqdefault.jpg`)
+  .addField("Stats","Start playing")
+  .addField("Song title",`${song.title}`)
+   .addField("Requested By",`${msg.author.tag}`)
+    .addField("Author",`${i["author"]["name"]}`)
+    .addField("Duration",`${TimeParser.format((Number(i["length_seconds"]) * 1000))}`)
+    .addField("View",`${i["view_count"].toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")}`)
+  .addField("Info",`Song [url](${song.url}) | Videos ID:  ${video.id}`)
   serverQueue.textChannel.send(`getting the info of ${song.title}`)
 .then((msg)=>{
 setTimeout(function(){
 msg.edit(embed);
 }, 1000)}
-
+    )
+        })
+  }
       )
 }})
 
