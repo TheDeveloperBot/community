@@ -1,4 +1,4 @@
-
+const Discord = require("discord.js");
 const { Client, Util } = require('discord.js');
 const { TOKEN, PREFIX, GOOGLE_API_KEY } = require('./config');
 const YouTube = require('simple-youtube-api');
@@ -184,6 +184,15 @@ function play(guild, song) {
 		return;
 	}
 	console.log(serverQueue.songs);
+  
+  const embed = new Discord.RichEmbed()
+   .setTimestamp()
+  .setThumbnail(`https://img.youtube.com/vi/${video.id}/mqdefault.jpg`)
+  .addField("Stats","Start playing")
+  .addField("Song title",`${song.title}`)
+   .addField("Requested By",`${msg.author.username}`)
+  .addField("The playing music",`${serverQueue.songs[0].title}`)
+  .addField("Info",`Song [url](${song.url}) | Videos ID: ${video.id}`)
 
 	const dispatcher = serverQueue.connection.playStream(ytdl(song.url))
 		.on('end', reason => {
@@ -195,8 +204,13 @@ function play(guild, song) {
 		.on('error', error => console.error(error));
 	dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
 
-	serverQueue.textChannel.send(`<a:playing:453621433441058826> Start playing: __**${song.title}**__ | Requested By: **${msg.author.username}** <a:log:454334691588177921>`);
-}
-});
+  serverQueue.textChannel.send(`getting the info of ${song.title}`)
+.then((msg)=>{
+setTimeout(function(){
+msg.edit(embed);
+}, 1000)}
+
+      )
+}})
 
 client.login(TOKEN);
